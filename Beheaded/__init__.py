@@ -78,7 +78,7 @@ class Headless(object):
     def _start_Xvfb(self):
         cmd = "Xvfb :%d -screen 0 %dx%dx%d" % (self.display, self.width, self.height, self.depth)
         # TODO check if Xvfb is running
-        return subprocess.Popen(self.shlex.split(cmd), stdout=self.subprocess.PIPE, stderr=self.subprocess.STDOUT)
+        return subprocess.Popen(shlex.split(cmd), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
 
 class Record(object):
@@ -129,7 +129,7 @@ class Record(object):
             self.codec,
             self.filename
         )
-        return self.subprocess.Popen(shlex.split(cmd),
-                                     stdout=self.subprocess.PIPE,
-                                     stderr=self.subprocess.STDOUT,
-                                     )
+        return subprocess.Popen(shlex.split(cmd),
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT,
+                                )
