@@ -83,7 +83,7 @@ class Headless(object):
 
 class Record(object):
 
-    def __init__(self, filename, xvfb, framerate=25):
+    def __init__(self, filename, xvfb=None, framerate=25):
         self.filename = filename
         ext = filename.rsplit(".", 1)[-1].strip()
         ext_codecs = {
@@ -99,10 +99,17 @@ class Record(object):
         self.framerate = framerate
         if self.codec == "mpeg1video":
             assert self.framerate not in [15]
-        self.xvfb = xvfb
+        if xvfb is None:
+            self.xvfb = Headless()
+            self.terminate_x = True
+        else:
+            self.xvfb = xvfb
+            self.terminate_x = False
 
     def start(self):
         try:
+            if self.terminate_x:
+                self.xvfb.start()
             self.recorder = self._start_ffmpeg(self.xvfb)
             # TODO: Check if ffmpeg is running
         except OSError:
@@ -116,6 +123,8 @@ class Record(object):
             time.sleep(3)
         self.recorder.send_signal(signal.SIGINT)
         returncode = self.recorder.wait()
+        if self.terminate_x:
+            self.xvfb.stop()
 
     def __exit__(self, type, value, traceback):
         self.stop()

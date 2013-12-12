@@ -5,13 +5,11 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 from setuptools import setup
-import os
-
 
 
 setup(
     name="Beheaded",
-    version="1.0",
+    version="1.1",
     author="Milan Falešník",
     author_email="milan@falesnik.net",
     description="Generic X window and recording for headless setups in Python.",
@@ -19,7 +17,7 @@ setup(
     keywords="headless xvfb ffmpeg recording",
     url="https://github.com/mfalesni/Beheaded",
     packages=["Beheaded"],
-    install_requires = ['Runner>=1.0'],
+    install_requires=['Runner>=1.1'],
     classifiers=[
         "Topic :: Utilities",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
