@@ -121,7 +121,8 @@ class Record(object):
     def stop(self):
         if self.codec in ["libvpx"]:    # To prevent cutting the recording too soon
             time.sleep(3)
-        self.recorder.send_signal(signal.SIGINT)
+        self.recorder.terminate()
+        (stdout, stderr) = self.recorder.communicate(None)
         returncode = self.recorder.wait()
         if self.terminate_x:
             self.xvfb.stop()
