@@ -131,7 +131,7 @@ class Record(object):
         self.stop()
 
     def _start_ffmpeg(self, xvfb):
-        cmd = "ffmpeg -y -r %d -g 600 -s %dx%d -f x11grab -i :%d -vcodec %s %s" % (
+        cmd = "ffmpeg -y -r %d -s %dx%d -f x11grab -i :%d -g 600 -vcodec %s %s" % (
             self.framerate,
             xvfb.width,
             xvfb.height,
